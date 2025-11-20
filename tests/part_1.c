@@ -6,12 +6,12 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 17:53:18 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:21:45 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <string.h>
+#include <bsd/string.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include "../libft/libft.h"
@@ -277,7 +277,47 @@ void    test_memmove(void)
     }
 }
 
+void test_strlcpy(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strlcpy ===\n" C_RESET);
 
+    char src[] = "Hello, World!";
+    char dest1[20];
+    char dest2[20];
+
+    size_t ret1 = strlcpy(dest1, src, sizeof(dest1));
+    size_t ret2 = ft_strlcpy(dest2, src, sizeof(dest2));
+    
+    assert_size_t_equal("ft_strlcpy return value", ret1, ret2);
+    
+    for (size_t i = 0; i < sizeof(src); i++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_strlcpy dest[%zu]", i);
+        assert_int_equal(label, dest1[i], dest2[i]);
+    }
+}
+
+void test_strlcat(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strlcat ===\n" C_RESET);
+
+    char src[] = " World!";
+    char dest1[20] = "Hello,";
+    char dest2[20] = "Hello,";
+
+    size_t ret1 = strlcat(dest1, src, sizeof(dest1));
+    size_t ret2 = ft_strlcat(dest2, src, sizeof(dest2));
+    
+    assert_size_t_equal("ft_strlcat return value", ret1, ret2);
+    
+    for (size_t i = 0; i < sizeof(dest1); i++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_strlcat dest[%zu]", i);
+        assert_int_equal(label, dest1[i], dest2[i]);
+    }
+}
 
 int main(void)
 {
@@ -293,6 +333,8 @@ int main(void)
     test_bzero();
     test_memcpy();
     test_memmove();
+    test_strlcpy();
+    test_strlcat();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
