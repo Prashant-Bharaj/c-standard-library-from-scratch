@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 15:41:54 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 14:40:24 by prasingh         ###   ########.fr       */
+/*   Created: 2025/11/20 14:57:14 by prasingh          #+#    #+#             */
+/*   Updated: 2025/11/20 15:05:09 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(int c)
+#include <unistd.h>
+
+size_t ft_strlen(const char *s)
 {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-        return (1024);
-    return (0);
+    size_t  len;
+    
+    len = 0;
+    while(*s)
+    {
+        len += sizeof(char);
+        s++;
+    }
+    return len;
 }

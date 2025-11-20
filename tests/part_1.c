@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 13:53:09 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/20 15:26:18 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ static void test_isalpha(void)
         char label[64];
 
         snprintf(label, sizeof(label), "ft_isalpha('%c')", c);
-        int std = isalpha((unsigned char)c);
-        int mine = ft_isalpha((unsigned char)c);
+        int std = isalpha(c);
+        int mine = ft_isalpha(c);
 
-        assert_int_equal(label, std != 0, mine != 0);
+        assert_int_equal(label, std, mine);
     }
 }
 
@@ -122,7 +122,7 @@ static void test_isdigit(void)
         int std = isdigit(c);
         int mine = ft_isdigit(c);
 
-        assert_int_equal(label, std != 0, mine != 0);
+        assert_int_equal(label, std, mine);
     }
 }
 
@@ -142,7 +142,7 @@ static void test_isalnum(void)
         int std = isalnum((unsigned char)c);
         int mine = ft_isalnum((unsigned char)c);
 
-        assert_int_equal(label, std != 0, mine != 0);
+        assert_int_equal(label, std, mine);
     }
 }
 
@@ -162,10 +162,47 @@ static void test_isascii(void)
         int std = isascii(c);
         int mine = ft_isascii(c);
 
-        assert_int_equal(label, std != 0, mine != 0);
+        assert_int_equal(label, std, mine);
     }
 }
 
+void test_isprint(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_isprint ===\n" C_RESET);
+    
+    int chars[] = {'\n', ' ', '1', 'a', '~', '\0'};
+    size_t n = sizeof(chars) / sizeof(chars[0]);
+    
+    for(size_t i = 0; i < n; i++)
+    {
+        int c = chars[i];
+        char label[64];
+
+        snprintf(label, sizeof(label), "ft_isprint(%d)", c);
+        int std = isprint(c);
+        int mine = ft_isprint(c);
+        
+        assert_int_equal(label, std, mine);
+    }
+}
+
+static void test_strlen(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strlen ===\n" C_RESET);
+    char *strings[] = { "ahas\0df", "Z", "0\0\0a", "9", "" , "@\033a", "k\322s", "\n", "x" };
+    size_t n = sizeof(strings) / sizeof(strings[0]);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        char label[64];
+
+        snprintf(label, sizeof(label), "ft_strlen('%s')", strings[i]);
+        size_t std = strlen(strings[i]);
+        size_t mine = ft_strlen(strings[i]);
+
+        assert_size_t_equal(label, std, mine);
+    }
+}
 
 int main(void)
 {
@@ -175,6 +212,8 @@ int main(void)
     test_isdigit();
     test_isalnum();
     test_isascii();
+    test_isprint();
+    test_strlen();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)

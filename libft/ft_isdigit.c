@@ -6,13 +6,13 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:24:01 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 13:35:01 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/20 14:44:18 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int    ft_isdigit(int c)
 {
     if (c >= '0' && c <= '9')
-        return (1);
+        return (2048);
     return (0);
 }
