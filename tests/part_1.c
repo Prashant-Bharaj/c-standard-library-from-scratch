@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   part_1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
+/*   Updated: 2025/11/20 13:53:09 by prasingh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -94,12 +106,75 @@ static void test_isalpha(void)
     }
 }
 
+static void test_isdigit(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_isdigit ===\n" C_RESET);
+
+    int chars[] = { 'a', 'Z', '0', '5', '9', ' ', '@', '3', '\n' };
+    size_t n = sizeof(chars) / sizeof(chars[0]);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        char c = (char)chars[i];
+        char label[64];
+
+        snprintf(label, sizeof(label), "ft_isdigit('%c')", c);
+        int std = isdigit(c);
+        int mine = ft_isdigit(c);
+
+        assert_int_equal(label, std != 0, mine != 0);
+    }
+}
+
+static void test_isalnum(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_isalnum ===\n" C_RESET);
+
+    int chars[] = { 'a', 'Z', '0', '5', '9', ' ', '@', '3', '\n', '~', '\033' };
+    size_t n = sizeof(chars) / sizeof(chars[0]);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        char c = (char)chars[i];
+        char label[64];
+
+        snprintf(label, sizeof(label), "ft_isalnum('%c')", c);
+        int std = isalnum((unsigned char)c);
+        int mine = ft_isalnum((unsigned char)c);
+
+        assert_int_equal(label, std != 0, mine != 0);
+    }
+}
+
+static void test_isascii(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_isascii ===\n" C_RESET);
+
+    int chars[] = { -1, 0, 65, 97, 127, 128, 255, '/033', 's', '\n', '\xFF' , '\x00'};
+    size_t n = sizeof(chars) / sizeof(chars[0]);
+
+    for (size_t i = 0; i < n; i++)
+    {
+        int c = chars[i];
+        char label[64];
+
+        snprintf(label, sizeof(label), "ft_isascii(%d)", c);
+        int std = isascii(c);
+        int mine = ft_isascii(c);
+
+        assert_int_equal(label, std != 0, mine != 0);
+    }
+}
+
 
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
 
     test_isalpha();
+    test_isdigit();
+    test_isalnum();
+    test_isascii();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)

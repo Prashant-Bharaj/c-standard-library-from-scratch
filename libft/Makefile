@@ -6,13 +6,13 @@
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 15:52:06 by prasingh          #+#    #+#              #
-#    Updated: 2025/11/20 13:17:15 by prasingh         ###   ########.fr        #
+#    Updated: 2025/11/20 13:39:58 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = libft.a
 
-SRC_PART1   = ft_isalpha.c 
+SRC_PART1   = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c
 
 SRC_PART2   = 
 
