@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 15:26:18 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/20 15:50:42 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,24 @@ static void test_strlen(void)
     }
 }
 
+static void test_memset(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_memset ===\n" C_RESET);
+
+    char buffer1[] = "Hello, World!";
+    char buffer2[] = "Hello, World!";
+
+    memset(buffer1, 'A', sizeof(buffer1)-4);
+    ft_memset(buffer2, 'A', sizeof(buffer2)-4);
+    
+    for (size_t i = 0; i < sizeof(buffer1); i++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_memset buffer[%zu]", i);
+        assert_int_equal(label, buffer1[i], buffer2[i]);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -214,6 +232,7 @@ int main(void)
     test_isascii();
     test_isprint();
     test_strlen();
+    test_memset();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
