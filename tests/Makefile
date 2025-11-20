@@ -5,48 +5,35 @@
 #                                                     +:+ +:+         +:+      #
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/11/19 15:52:06 by prasingh          #+#    #+#              #
-#    Updated: 2025/11/19 15:52:06 by prasingh         ###   ########.fr        #
+#    Created: 2025/11/20 12:56:35 by prasingh          #+#    #+#              #
+#    Updated: 2025/11/20 12:56:35 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = libft.a
-
-SRC_PART1   = ft_isalpha.c 
-
-SRC_PART2   = 
-
-SRC         = $(SRC_PART1) $(SRC_PART2)
-
-SRC_BONUS   = 
-
-OBJ         = $(SRC:.c=.o)
-OBJ_BONUS   = $(SRC_BONUS:.c=.o)
+NAME        = part_1
+SRC         = part_1.c
+LIBFT_DIR   = ../libft
+LIBFT       = $(LIBFT_DIR)/libft.a
 
 CC          = cc
-CFLAGS      = -Wall -Wextra -Werror
-AR          = ar
-ARFLAGS     = rcs
+CFLAGS      = 
+INCLUDE     = -I$(LIBFT_DIR)
+LIBFLAGS    = -L$(LIBFT_DIR) -lft
 RM          = rm -f
-INCLUDE     = -I.
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(AR) $(ARFLAGS) $@ $^
+$(NAME): $(LIBFT) $(SRC)
+	$(CC) $(CFLAGS) $(INCLUDE) $(SRC) $(LIBFLAGS) -o $@
 
-bonus: $(OBJ) $(OBJ_BONUS)
-	$(AR) $(ARFLAGS) $(NAME) $^
-
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	$(RM) $(OBJ) $(OBJ_BONUS)
+	$(RM) $(NAME)
 
 fclean: clean
-	$(RM) $(NAME)
 
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
