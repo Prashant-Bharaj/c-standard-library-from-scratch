@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 16:36:07 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:53:18 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,26 @@ void test_memcpy(void)
     }
 }
 
+void    test_memmove(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_memmove ===\n" C_RESET);
+
+    char buffer1[] = "Hello, World!";
+    char buffer2[] = "Hello, World!";
+
+    ft_memmove(buffer1 + 2, buffer1, sizeof(buffer1) - 2);
+    memmove(buffer2+2, buffer2, sizeof(buffer2) - 2);
+    
+    for (size_t i = 0; i < sizeof(buffer1); i++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_memmove buffer[%zu]", i);
+        assert_int_equal(label, buffer1[i], buffer2[i]);
+    }
+}
+
+
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -272,6 +292,7 @@ int main(void)
     test_memset();
     test_bzero();
     test_memcpy();
+    test_memmove();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)

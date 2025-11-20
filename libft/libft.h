@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 16:00:56 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:46:45 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@ int ft_isprint(int c);
 size_t ft_strlen(const char *s);
 void *ft_memset(void *s, int c, size_t n);
 void ft_bzero(void *s, size_t n);
+void *ft_memcpy(void *dest, const void *src, size_t n);
+void *ft_memmove(void *dest, const void *src, size_t n);
+
 
 #endif

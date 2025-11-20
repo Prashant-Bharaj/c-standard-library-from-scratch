@@ -6,14 +6,14 @@
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 15:52:06 by prasingh          #+#    #+#              #
-#    Updated: 2025/11/20 16:00:43 by prasingh         ###   ########.fr        #
+#    Updated: 2025/11/20 16:46:59 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME        = libft.a
 
 SRC_PART1   = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
-	ft_strlen.c ft_memset.c ft_bzero.c
+	ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c
 SRC_PART2   = 
 
 SRC         = $(SRC_PART1) $(SRC_PART2)

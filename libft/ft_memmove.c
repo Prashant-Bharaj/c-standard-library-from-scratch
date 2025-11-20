@@ -1,29 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   ft_memove.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 16:03:19 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 16:30:24 by prasingh         ###   ########.fr       */
+/*   Created: 2025/11/20 16:40:07 by prasingh          #+#    #+#             */
+/*   Updated: 2025/11/20 16:47:23 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<unistd.h>
+#include <unistd.h>
 
-void *ft_memcpy(void *dest, const void *src, size_t n)
-{    
-    size_t	i;
+void *ft_memmove(void *dest, const void *src, size_t n)
+{
+    size_t          i;
 
     if (!dest && !src)
         return (NULL);
-    i = 0;
-    while (i < n)
+    if (dest < src)
     {
-        ((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
-        i++;
+        i = 0;
+        while (i < n)
+        {
+            ((unsigned char *)dest)[i] = ((unsigned char *)src)[i];
+            i++;
+        }
+    }
+    else
+    {
+        i = n;
+        while (i > 0)
+        {
+            ((unsigned char *)dest)[i - 1] = ((unsigned char *)src)[i - 1];
+            i--;
+        }
     }
     return (dest);
 }
-
