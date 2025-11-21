@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 18:37:31 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 19:29:48 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -548,6 +548,41 @@ void test_atoi(void)
     }
 }
 
+void test_calloc(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_calloc ===\n" C_RESET);
+
+    size_t nmemb = 5;
+    size_t size = sizeof(int);
+
+    int *std = (int *)calloc(nmemb, size);
+    int *mine = (int *)ft_calloc(nmemb, size);
+
+    char label[64];
+    snprintf(label, sizeof(label), "ft_calloc zero-initialization");
+
+    for (size_t i = 0; i < nmemb; i++)
+    {
+        assert_int_equal(label, std[i], mine[i]);
+    }
+
+    free(std);
+    free(mine);
+
+    // Test for characters  
+    nmemb = 10;
+    size = sizeof(char);
+    char *std_char = (char *)calloc(nmemb, size);
+    char *mine_char = (char *)ft_calloc(nmemb, size);
+    snprintf(label, sizeof(label), "ft_calloc char zero-initialization");
+    for (size_t i = 0; i < nmemb; i++)
+    {
+        assert_int_equal(label, std_char[i], mine_char[i]);
+    }
+    free(std_char);
+    free(mine_char);    
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -572,6 +607,7 @@ int main(void)
     test_memcmp();
     test_strnstr();
     test_atoi();
+    test_calloc();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
