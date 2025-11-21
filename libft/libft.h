@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 14:20:34 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:27:46 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ size_t ft_strlcat(char *dst, const char *src, size_t dstsize);
 int ft_toupper(int c);
 int ft_tolower(int c);
 char *ft_strchr(const char *s, int c);
+char *ft_strrchr(const char *s, int c);
+
 
 
 #endif

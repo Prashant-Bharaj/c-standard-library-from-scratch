@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 14:22:37 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:31:05 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,28 @@ void    test_strchr(void)
 
         assert_ptr_equal(label, std, mine);
     }
+}
+
+void    test_strrchr(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strrchr ===\n" C_RESET);
+
+    const char *str = "Hello, World!";
+    char label[64];
+    for (int c = -1; c <= 128; c++)
+    {
+
+        snprintf(label, sizeof(label), "ft_strrchr('%s', %d)", str, c);
+        char *std = strrchr(str, c);
+        char *mine = ft_strrchr(str, c);
+
+        assert_ptr_equal(label, std, mine);
+    }
+    str = NULL;
+    snprintf(label, sizeof(label), "ft_strrchr('%s', %d)", str, 'A');
+    char *std = strrchr(str, 'A');
+    char *mine = ft_strrchr(str, 'A');
+    assert_ptr_equal(label, std, mine);
 }
 
 int main(void)
