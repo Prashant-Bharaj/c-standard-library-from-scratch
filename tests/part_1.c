@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 18:13:29 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 18:29:44 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,6 +486,37 @@ void test_memcmp(void)
     }
 }
 
+void    test_strnstr(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strnstr ===\n" C_RESET);
+
+    const char *big = "Hello, World!";
+    const char *little = "World";
+    size_t big_len = strlen(big);
+
+    for (size_t len = 0; len <= big_len + 5; len++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_strnstr('%s', '%s', %zu)", big, little, len);
+        char *std = strnstr(big, little, len);
+        char *mine = ft_strnstr(big, little, len);
+
+        assert_ptr_equal(label, std, mine);
+    }
+
+    // Test with little string not present
+    little = "Universe";
+    for (size_t len = 0; len <= big_len + 5; len++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_strnstr('%s', '%s', %zu)", big, little, len);
+        char *std = strnstr(big, little, len);
+        char *mine = ft_strnstr(big, little, len);
+
+        assert_ptr_equal(label, std, mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -507,6 +538,9 @@ int main(void)
     test_strchr();
     test_strncmp();
     test_memchr();
+    test_memcmp();
+    test_strnstr();
+    
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
