@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 14:34:00 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 17:59:24 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int ft_tolower(int c);
 char *ft_strchr(const char *s, int c);
 char *ft_strrchr(const char *s, int c);
 int ft_strncmp(const char *s1, const char *s2, size_t n);
+void *ft_memchr(const void *s, int c, size_t n);
 
 
 

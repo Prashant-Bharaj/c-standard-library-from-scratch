@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 17:49:49 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 18:00:16 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -427,6 +427,24 @@ void test_strncmp(void)
     }
 }
 
+void test_memchr(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_memchr ===\n" C_RESET);
+
+    const char buffer[] = "Hello, World!";
+    size_t len = sizeof(buffer);
+
+    for (int c = -1; c <= 128; c++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_memchr(buffer, %d, %zu)", c, len);
+        void *std = memchr(buffer, c, len);
+        void *mine = ft_memchr(buffer, c, len);
+
+        assert_ptr_equal(label, std, mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -447,6 +465,7 @@ int main(void)
     // test_tolower();
     test_strchr();
     test_strncmp();
+    test_memchr();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
