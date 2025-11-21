@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 18:00:16 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 18:13:29 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,6 +442,47 @@ void test_memchr(void)
         void *mine = ft_memchr(buffer, c, len);
 
         assert_ptr_equal(label, std, mine);
+    }
+}
+
+void test_memcmp(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_memcmp ===\n" C_RESET);
+
+    char *pairs[][2] = {
+        {"Hello", "Hello"},
+        {"Hello", "Hell"},
+        {"Hello", "Hello, World!"},
+        {"abc", "abd"},
+        {"", ""},
+        {"abc", ""},
+        {"", "abc"},
+        {"same", "same"},
+        {"case", "Case"},
+    };
+    size_t n_pairs = sizeof(pairs) / sizeof(pairs[0]);
+
+    for (size_t i = 0; i < n_pairs; i++)
+    {
+        char *s1 = pairs[i][0];
+        char *s2 = pairs[i][1];
+
+        for (size_t n = 0; n <= 10; n++)
+        {
+            char label[128];
+            snprintf(label, sizeof(label), "ft_memcmp('%s', '%s', %zu)", s1, s2, n);
+            int std = memcmp(s1, s2, n);
+            int mine = ft_memcmp(s1, s2, n);
+
+            // Normalize return values to -1, 0, 1
+            if (std < 0) std = -1;
+            else if (std > 0) std = 1;
+
+            if (mine < 0) mine = -1;
+            else if (mine > 0) mine = 1;
+
+            assert_int_equal(label, std, mine);
+        }
     }
 }
 
