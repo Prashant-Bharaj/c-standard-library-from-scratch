@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 14:14:57 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:22:37 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,6 +348,22 @@ void test_tolower(void)
     }
 }
 
+void    test_strchr(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strchr ===\n" C_RESET);
+
+    const char *str = "Hello, World!";
+    for (int c = -1; c <= 128; c++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_strchr('%s', %d)", str, c);
+        char *std = strchr(str, c);
+        char *mine = ft_strchr(str, c);
+
+        assert_ptr_equal(label, std, mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -366,6 +382,7 @@ int main(void)
     test_strlcat();
     // test_toupper();
     // test_tolower();
+    test_strchr();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
