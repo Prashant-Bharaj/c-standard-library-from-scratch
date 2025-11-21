@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 18:29:44 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 18:37:31 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,6 +517,37 @@ void    test_strnstr(void)
     }
 }
 
+void test_atoi(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_atoi ===\n" C_RESET);
+
+    const char *tests[] = {
+        "123",
+        "-123",
+        "0",
+        "   456",
+        "+789",
+        "42abc",
+        "abc42",
+        "",
+        "2147483647",  
+        "-2147483648",
+        "   -0012a42"
+    };
+    size_t n_tests = sizeof(tests) / sizeof(tests[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *str = tests[i];
+        char label[64];
+        snprintf(label, sizeof(label), "ft_atoi('%s')", str);
+        int std = atoi(str);
+        int mine = ft_atoi(str);
+
+        assert_int_equal(label, std, mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -540,6 +571,7 @@ int main(void)
     test_memchr();
     test_memcmp();
     test_strnstr();
+    test_atoi();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
