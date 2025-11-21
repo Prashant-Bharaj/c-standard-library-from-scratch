@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 14:31:05 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 17:49:49 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -386,6 +386,47 @@ void    test_strrchr(void)
     assert_ptr_equal(label, std, mine);
 }
 
+void test_strncmp(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strncmp ===\n" C_RESET);
+
+    const char *pairs[][2] = {
+        {"Hello", "Hello"},
+        {"Hello", "Hell"},
+        {"Hello", "Hello, World!"},
+        {"abc", "abd"},
+        {"", ""},
+        {"abc", ""},
+        {"", "abc"},
+        {"same", "same"},
+        {"case", "Case"},
+    };
+    size_t n_pairs = sizeof(pairs) / sizeof(pairs[0]);
+
+    for (size_t i = 0; i < n_pairs; i++)
+    {
+        const char *s1 = pairs[i][0];
+        const char *s2 = pairs[i][1];
+
+        for (size_t n = 0; n <= 10; n++)
+        {
+            char label[128];
+            snprintf(label, sizeof(label), "ft_strncmp('%s', '%s', %zu)", s1, s2, n);
+            int std = strncmp(s1, s2, n);
+            int mine = ft_strncmp(s1, s2, n);
+
+            // Normalize return values to -1, 0, 1
+            if (std < 0) std = -1;
+            else if (std > 0) std = 1;
+
+            if (mine < 0) mine = -1;
+            else if (mine > 0) mine = 1;
+
+            assert_int_equal(label, std, mine);
+        }
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -405,6 +446,7 @@ int main(void)
     // test_toupper();
     // test_tolower();
     test_strchr();
+    test_strncmp();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
