@@ -6,13 +6,13 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 14:07:27 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 14:46:36 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:06:50 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int ft_isprint(int c)
 {
     if(c >= ' ' && c <= '~')
-        return (16384);
+        return (1);
     return (0);
 }

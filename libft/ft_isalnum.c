@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:32:33 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 14:54:50 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:06:32 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@ int    ft_isalnum(int c)
     if ((c >= 'a' && c <= 'z') ||
         (c >= 'A' && c <= 'Z') ||
         (c >= '0' && c <= '9'))
-        return (8);
+        return (1);
     return (0);
 }

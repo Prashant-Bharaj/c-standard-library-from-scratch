@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/20 19:21:45 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:14:57 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void test_isalpha(void)
         int std = isalpha(c);
         int mine = ft_isalpha(c);
 
-        assert_int_equal(label, std, mine);
+        assert_int_equal(label, std!=0, mine!=0);
     }
 }
 
@@ -122,7 +122,7 @@ static void test_isdigit(void)
         int std = isdigit(c);
         int mine = ft_isdigit(c);
 
-        assert_int_equal(label, std, mine);
+        assert_int_equal(label, std!=0, mine!=0);
     }
 }
 
@@ -142,7 +142,7 @@ static void test_isalnum(void)
         int std = isalnum((unsigned char)c);
         int mine = ft_isalnum((unsigned char)c);
 
-        assert_int_equal(label, std, mine);
+        assert_int_equal(label, std!=0, mine!=0);
     }
 }
 
@@ -182,7 +182,7 @@ void test_isprint(void)
         int std = isprint(c);
         int mine = ft_isprint(c);
         
-        assert_int_equal(label, std, mine);
+        assert_int_equal(label, std!=0, mine!=0);
     }
 }
 
@@ -319,6 +319,35 @@ void test_strlcat(void)
     }
 }
 
+void test_toupper(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_toupper ===\n" C_RESET);
+
+    for (int c = 0; c <= 255; c++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_toupper(%d)", c);
+        int std = toupper(c);
+        int mine = ft_toupper(c);
+        assert_int_equal(label, std, mine);
+    }
+}
+
+void test_tolower(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_tolower ===\n" C_RESET);
+
+    for (int c = 0; c <= 255; c++)
+    {
+        char label[64];
+        snprintf(label, sizeof(label), "ft_tolower(%d)", c);
+        int std = tolower(c);
+        int mine = ft_tolower(c);
+
+        assert_int_equal(label, std, mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -335,6 +364,8 @@ int main(void)
     test_memmove();
     test_strlcpy();
     test_strlcat();
+    // test_toupper();
+    // test_tolower();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)

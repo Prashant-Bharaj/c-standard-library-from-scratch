@@ -6,8 +6,13 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 10:56:31 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 10:56:33 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 14:06:01 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
+int ft_toupper(int c)
+{
+    if (c >= 'a' && c <= 'z')
+        return (c - 32);
+    return (c);
+}
