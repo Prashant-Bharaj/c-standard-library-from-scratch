@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 19:26:24 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 19:40:42 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int ft_memcmp(const void *s1, const void *s2, size_t n);
 char *ft_strnstr(const char *big, const char *little, size_t len);
 int ft_atoi(const char *nptr);
 void *ft_calloc(size_t nmemb, size_t size);
-
+char *ft_strdup(const char *s);
 
 
 #endif

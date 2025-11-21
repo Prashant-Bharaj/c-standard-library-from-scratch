@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:21:56 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 19:29:48 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 19:42:50 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -583,6 +583,35 @@ void test_calloc(void)
     free(mine_char);    
 }
 
+void    test_strdup(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strdup ===\n" C_RESET);
+
+    const char *tests[] = {
+        "Hello, World!",
+        "",
+        "A",
+        "This is a longer string to test strdup function.",
+        "String with \0 null char",
+    };
+    size_t n_tests = sizeof(tests) / sizeof(tests[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *str = tests[i];
+        char label[64];
+        snprintf(label, sizeof(label), "ft_strdup('%s')", str);
+        
+        char *std = strdup(str);
+        char *mine = ft_strdup(str);
+
+        assert_str_equal(label, std, mine);
+
+        free(std);
+        free(mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -608,6 +637,7 @@ int main(void)
     test_strnstr();
     test_atoi();
     test_calloc();
+    test_strdup();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
