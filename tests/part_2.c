@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 15:28:21 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:31:00 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -324,6 +324,47 @@ void test_itoa(void)
     }
 }
 
+char to_upper(unsigned int index, char c)
+{
+    (void)index;
+    return (char)toupper((unsigned char)c);
+}
+
+void test_strmapi(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strmapi ===\n" C_RESET);
+
+    const char *test_strings[] = {
+        "hello",
+        "World!",
+        "",
+        "123abc",
+    };
+    size_t n_tests = sizeof(test_strings) / sizeof(test_strings[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *s = test_strings[i];
+
+        char label[128];
+        snprintf(label, sizeof(label), "ft_strmapi('%s', to_upper)", s);
+
+        // Manually map using standard functions for comparison
+        size_t len = strlen(s);
+        char *std = (char *)malloc(len + 1);
+        for (size_t j = 0; j < len; j++)
+            std[j] = to_upper(j, s[j]);
+        std[len] = '\0';
+
+        char *mine = ft_strmapi(s, to_upper);
+
+        assert_str_equal(label, std, mine);
+
+        free(std);
+        free(mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -333,6 +374,7 @@ int main(void)
     // test_strtrim();
     test_split();
     test_itoa();
+    test_strmapi();
     
     
 

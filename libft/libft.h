@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 15:27:01 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:27:57 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ char *ft_strjoin(const char *s1, const char *s2);
 char *ft_strtrim(const char *s1, const char *set);
 char **ft_split(const char *s, char c);
 char *ft_itoa(int n);
+char *ft_strmapi(const char *s, char (*f)(unsigned int, char));
 
 #endif
