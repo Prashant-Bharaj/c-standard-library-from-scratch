@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 17:19:29 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:33:43 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -483,6 +483,54 @@ void    test_putstr_fd(void)
     remove(filename);
 }
 
+void test_putendl_fd(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_putendl_fd ===\n" C_RESET);
+
+    const char *filename = "temp_test_putendl_fd.txt";
+    
+    // 1. Open and Write
+    FILE *file = fopen(filename, "w");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for write\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    int fd = fileno(file);
+
+    const char *test_string = "Hello World\nThis world is crazy!\n don't know what to expect\n";
+    ft_putendl_fd((char *)test_string, fd);
+    fclose(file);
+
+    // 2. Open and Read ALL content
+    file = fopen(filename, "r");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for read\n" C_RESET);
+        g_failures++;
+        return;
+    }
+
+    char buffer[1024];
+    // fread returns the number of bytes read.
+    // We read 1 byte elements, up to sizeof(buffer) - 1 (saving room for \0)
+    size_t bytes_read = fread(buffer, 1, sizeof(buffer) - 1, file);
+    
+    // CRITICAL: fread does not null-terminate! We must do it manually.
+    buffer[bytes_read] = '\0';
+    
+    fclose(file);
+
+    // 3. Create expected string (Original + \n)
+    char expected[1024];
+    snprintf(expected, sizeof(expected), "%s\n", test_string);
+
+    assert_str_equal("ft_putendl_fd check", expected, buffer);
+
+    remove(filename);
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -496,6 +544,7 @@ int main(void)
     test_striteri();
     test_putchar_fd();
     test_putstr_fd();
+    test_putendl_fd();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
