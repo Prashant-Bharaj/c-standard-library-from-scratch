@@ -6,86 +6,11 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 17:33:43 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 18:59:14 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <stdio.h>
-#include <bsd/string.h>
-#include <ctype.h>
-#include <stdlib.h>
-#include "../libft/libft.h"
-
-#define C_RED   "\033[31m"
-#define C_GREEN "\033[32m"
-#define C_YELLOW "\033[33m"
-#define C_RESET "\033[0m"
-
-static int g_failures = 0;
-
-static void assert_int_equal(const char *label, int expected, int actual)
-{
-    if (expected == actual)
-        printf(C_GREEN "[OK]   %s (exp=%d, got=%d)\n" C_RESET,
-               label, expected, actual);
-    else
-    {
-        printf(C_RED   "[KO]   %s (exp=%d, got=%d)\n" C_RESET,
-               label, expected, actual);
-        g_failures++;
-    }
-}
-
-static void assert_size_t_equal(const char *label, size_t expected, size_t actual)
-{
-    if (expected == actual)
-        printf(C_GREEN "[OK]   %s (exp=%zu, got=%zu)\n" C_RESET,
-               label, expected, actual);
-    else
-    {
-        printf(C_RED   "[KO]   %s (exp=%zu, got=%zu)\n" C_RESET,
-               label, expected, actual);
-        g_failures++;
-    }
-}
-
-static void assert_str_equal(const char *label, const char *expected, const char *actual)
-{
-    int equal = 0;
-
-    if (!expected && !actual)
-        equal = 1;
-    else if (expected && actual && strcmp(expected, actual) == 0)
-        equal = 1;
-
-    if (equal)
-        printf(C_GREEN "[OK]   %s (exp=\"%s\", got=\"%s\")\n" C_RESET,
-               label,
-               expected ? expected : "(null)",
-               actual ? actual : "(null)");
-    else
-    {
-        printf(C_RED   "[KO]   %s (exp=\"%s\", got=\"%s\")\n" C_RESET,
-               label,
-               expected ? expected : "(null)",
-               actual ? actual : "(null)");
-        g_failures++;
-    }
-}
-
-static void assert_ptr_equal(const char *label, const void *expected, const void *actual)
-{
-    if (expected == actual)
-        printf(C_GREEN "[OK]   %s (exp=%p, got=%p)\n" C_RESET,
-               label, expected, actual);
-    else
-    {
-        printf(C_RED   "[KO]   %s (exp=%p, got=%p)\n" C_RESET,
-               label, expected, actual);
-        g_failures++;
-    }
-}
+#include "test.h"
 
 void test_substr(void)
 {
@@ -488,8 +413,6 @@ void test_putendl_fd(void)
     printf(C_YELLOW "\n=== TEST: ft_putendl_fd ===\n" C_RESET);
 
     const char *filename = "temp_test_putendl_fd.txt";
-    
-    // 1. Open and Write
     FILE *file = fopen(filename, "w");
     if (!file)
     {
@@ -503,7 +426,6 @@ void test_putendl_fd(void)
     ft_putendl_fd((char *)test_string, fd);
     fclose(file);
 
-    // 2. Open and Read ALL content
     file = fopen(filename, "r");
     if (!file)
     {
@@ -513,21 +435,71 @@ void test_putendl_fd(void)
     }
 
     char buffer[1024];
-    // fread returns the number of bytes read.
-    // We read 1 byte elements, up to sizeof(buffer) - 1 (saving room for \0)
     size_t bytes_read = fread(buffer, 1, sizeof(buffer) - 1, file);
-    
-    // CRITICAL: fread does not null-terminate! We must do it manually.
     buffer[bytes_read] = '\0';
-    
     fclose(file);
-
-    // 3. Create expected string (Original + \n)
     char expected[1024];
     snprintf(expected, sizeof(expected), "%s\n", test_string);
 
     assert_str_equal("ft_putendl_fd check", expected, buffer);
 
+    remove(filename);
+}
+
+void    test_putnbr_fd(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_putnbr_fd ===\n" C_RESET);
+    
+    const char *filename = "temp_test_putnbr_fd.txt";
+    FILE *file = fopen(filename, "w");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for testing ft_putnbr_fd\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    int fd = fileno(file);
+
+    int test_values[] = {
+        0,
+        123,
+        -123,
+        2147483647,
+        -2147483648,
+        42,
+        -42,
+    };
+    size_t n_tests = sizeof(test_values) / sizeof(test_values[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        int n = test_values[i];
+
+        ft_putnbr_fd(n, fd);
+        ft_putchar_fd('\n', fd);
+    }
+    fclose(file);
+
+    // Now read back the file and compare
+    file = fopen(filename, "r");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for reading in ft_putnbr_fd test\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    char buffer[256];
+    size_t index = 0;
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        int n = test_values[i];
+        char expected[13];
+        snprintf(expected, sizeof(expected), "%d\n", n);
+
+        fgets(buffer, sizeof(buffer), file);
+        assert_str_equal("ft_putnbr_fd output", expected, buffer);
+    }
+    fclose(file);
     remove(filename);
 }
 
@@ -545,6 +517,7 @@ int main(void)
     test_putchar_fd();
     test_putstr_fd();
     test_putendl_fd();
+    test_putnbr_fd();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);

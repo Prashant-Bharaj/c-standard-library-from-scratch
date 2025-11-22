@@ -6,12 +6,12 @@
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/20 12:56:35 by prasingh          #+#    #+#              #
-#    Updated: 2025/11/22 11:36:17 by prasingh         ###   ########.fr        #
+#    Updated: 2025/11/22 19:03:17 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME        = part_2
-SRC         = part_2.c
+NAME        = bonus
+SRC         = bonus.c
 SRC_DIR     = ../libft/*.c
 LIBFT_DIR   = ../libft
 LIBFT       = $(LIBFT_DIR)/libft.a
