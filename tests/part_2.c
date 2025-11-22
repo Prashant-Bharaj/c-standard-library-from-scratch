@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 11:41:41 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 12:02:17 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,50 @@ void test_substr(void)
     }
 }
 
+void test_strjoin(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strjoin ===\n" C_RESET);
+
+    const char *test_cases[][2] = {
+        {"Hello, ", "World!"},
+        {"", ""},
+        {"Foo", ""},
+        {"", "Bar"},
+        {"Longer string ", "with another longer string."},
+    };
+    size_t n_tests = sizeof(test_cases) / sizeof(test_cases[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *s1 = test_cases[i][0];
+        const char *s2 = test_cases[i][1];
+
+        char label[128];
+        snprintf(label, sizeof(label), "ft_strjoin('%s', '%s')", s1, s2);
+
+        size_t len1 = strlen(s1);
+        size_t len2 = strlen(s2);
+        char *std = (char *)malloc(len1 + len2 + 1);
+        if (std)
+        {
+            strcpy(std, s1);
+            strcat(std, s2);
+        }
+        char *mine = ft_strjoin(s1, s2);
+
+        assert_str_equal(label, std, mine);
+
+        free(std);
+        free(mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
     
     test_substr();
+    test_strjoin();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);

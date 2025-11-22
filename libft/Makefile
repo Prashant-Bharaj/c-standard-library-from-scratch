@@ -6,7 +6,7 @@
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 15:52:06 by prasingh          #+#    #+#              #
-#    Updated: 2025/11/21 20:02:46 by prasingh         ###   ########.fr        #
+#    Updated: 2025/11/22 12:01:22 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_PART1   = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_atoi.c ft_calloc.c \
 	ft_strdup.c
 	
-SRC_PART2   = ft_substr.c
+SRC_PART2   = ft_substr.c ft_strjoin.c
 
 SRC         = $(SRC_PART1) $(SRC_PART2)
 
