@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 12:02:17 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 14:47:24 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,59 @@ void test_strjoin(void)
     }
 }
 
+void test_strtrim(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_strtrim ===\n" C_RESET);
+
+    const char *test_cases[][2] = {
+        {"  Hello, World!  ", " "},
+        {"xxxyHello, World!yyx", "xy"},
+        {"NoTrimNeeded", " "},
+        {"aaaa", "a"},
+        {"", " "},
+        {"   ", " "},
+    };
+    size_t n_tests = sizeof(test_cases) / sizeof(test_cases[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *s1 = test_cases[i][0];
+        const char *set = test_cases[i][1];
+
+        char label[128];
+        snprintf(label, sizeof(label), "ft_strtrim('%s', '%s')", s1, set);
+
+        // Manually trim using standard functions for comparison
+        const char *start = s1;
+        while (*start && strchr(set, *start))
+            start++;
+        const char *end = s1 + strlen(s1) - 1;
+        while (end > start && strchr(set, *end))
+            end--;
+        size_t len = (end >= start) ? (size_t)(end - start + 1) : 0;
+        char *std = (char *)malloc(len + 1);
+        if (std)
+        {
+            strncpy(std, start, len);
+            std[len] = '\0';
+        }
+        char *mine = ft_strtrim(s1, set);
+
+        assert_str_equal(label, std, mine);
+
+        free(std);
+        free(mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
     
     test_substr();
     test_strjoin();
+    test_strtrim();
+    
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);

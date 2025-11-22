@@ -6,11 +6,11 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 14:23:48 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 14:25:04 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 12:59:25 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 char *ft_strrchr(const char *s, int c)
 {

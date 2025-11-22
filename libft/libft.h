@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 12:01:13 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 14:44:13 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void *ft_calloc(size_t nmemb, size_t size);
 char *ft_strdup(const char *s);
 char *ft_substr(const char *s, unsigned int start, size_t len);
 char *ft_strjoin(const char *s1, const char *s2);
+char *ft_strtrim(const char *s1, const char *set);
 
 #endif
