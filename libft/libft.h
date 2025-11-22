@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 19:40:42 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/21 20:02:30 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ char *ft_strnstr(const char *big, const char *little, size_t len);
 int ft_atoi(const char *nptr);
 void *ft_calloc(size_t nmemb, size_t size);
 char *ft_strdup(const char *s);
-
+char *ft_substr(const char *s, unsigned int start, size_t len);
 
 #endif
