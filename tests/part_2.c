@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 16:31:00 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:19:29 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,6 +365,124 @@ void test_strmapi(void)
     }
 }
 
+void to_upper_striteri(unsigned int index, char *c)
+{
+    (void)index;
+    *c = (char)toupper((unsigned char)*c);
+}
+
+void    test_striteri(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_striteri ===\n" C_RESET);
+
+    const char *test_strings[] = {
+        "hello",
+        "World!",
+        "",
+        "123abc",
+    };
+    size_t n_tests = sizeof(test_strings) / sizeof(test_strings[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        char *s = strdup(test_strings[i]);
+
+        char label[128];
+        snprintf(label, sizeof(label), "ft_striteri('%s', to_upper)", s);
+
+        // Manually iterate using standard functions for comparison
+        size_t len = strlen(s);
+        char *std = strdup(s);
+        for (size_t j = 0; j < len; j++)
+            std[j] = to_upper(j, std[j]);
+
+        ft_striteri(s, to_upper_striteri);
+        assert_str_equal(label, std, s);
+
+        free(std);
+        free(s);
+    }
+}
+
+void    test_putchar_fd(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_putchar_fd ===\n" C_RESET);
+
+    // Since ft_putchar_fd writes to a file descriptor,
+    // we will test it by writing to a temporary file
+    const char *filename = "temp_test_putchar_fd.txt";
+    FILE *file = fopen(filename, "w");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for testing ft_putchar_fd\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    int fd = fileno(file);
+
+    const char *test_string = "Hello, World!";
+    for (size_t i = 0; test_string[i] != '\0'; i++)
+    {
+        ft_putchar_fd(test_string[i], fd);
+    }
+    fclose(file);
+
+    // Now read back the file and compare
+    file = fopen(filename, "r");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for reading in ft_putchar_fd test\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    char buffer[50];
+    fgets(buffer, sizeof(buffer), file);
+    fclose(file);
+
+    assert_str_equal("ft_putchar_fd output", test_string, buffer);
+
+    // Clean up
+    remove(filename);
+}
+
+void    test_putstr_fd(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_putstr_fd ===\n" C_RESET);
+
+    // Since ft_putstr_fd writes to a file descriptor,
+    // we will test it by writing to a temporary file
+    const char *filename = "temp_test_putstr_fd.txt";
+    FILE *file = fopen(filename, "w");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for testing ft_putstr_fd\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    int fd = fileno(file);
+
+    const char *test_string = "Hello, World! This is a test of ft_putstr_fd.";
+    ft_putstr_fd(test_string, fd);
+    fclose(file);
+
+    // Now read back the file and compare
+    file = fopen(filename, "r");
+    if (!file)
+    {
+        printf(C_RED "[KO]   Could not open file for reading in ft_putstr_fd test\n" C_RESET);
+        g_failures++;
+        return;
+    }
+    char buffer[100];
+    fgets(buffer, sizeof(buffer), file);
+    fclose(file);
+
+    assert_str_equal("ft_putstr_fd output", test_string, buffer);
+
+    // Clean up
+    remove(filename);
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -375,7 +493,9 @@ int main(void)
     test_split();
     test_itoa();
     test_strmapi();
-    
+    test_striteri();
+    test_putchar_fd();
+    test_putstr_fd();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);

@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 16:27:57 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:56:57 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define LIBFT_H
 
 #include <stdlib.h>
+#include <unistd.h>
 
 int ft_isalpha(int c);
 int ft_isdigit(int c);
@@ -44,5 +45,8 @@ char *ft_strtrim(const char *s1, const char *set);
 char **ft_split(const char *s, char c);
 char *ft_itoa(int n);
 char *ft_strmapi(const char *s, char (*f)(unsigned int, char));
+void ft_striteri(char *s, void (*f)(unsigned int, char*));
+void ft_putchar_fd(char c, int fd);
+void ft_putstr_fd(const char *s, int fd);
 
 #endif
