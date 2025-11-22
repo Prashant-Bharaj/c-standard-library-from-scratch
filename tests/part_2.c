@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 11:38:27 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 11:41:41 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,47 @@ static void assert_ptr_equal(const char *label, const void *expected, const void
     }
 }
 
+void test_substr(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_substr ===\n" C_RESET);
+
+    const char *tests[] = {
+        "Hello, World!",
+        "",
+        "Short",
+        "A longer string to test substr function.",
+    };
+    size_t n_tests = sizeof(tests) / sizeof(tests[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *str = tests[i];
+        size_t len = strlen(str);
+
+        for (size_t start = 0; start <= len; start++)
+        {
+            for (size_t sub_len = 0; sub_len <= len - start + 1; sub_len++)
+            {
+                char label[128];
+                snprintf(label, sizeof(label), "ft_substr('%s', %zu, %zu)", str, start, sub_len);
+
+                char *std = strndup(str + start, sub_len);
+                char *mine = ft_substr(str, start, sub_len);
+
+                assert_str_equal(label, std, mine);
+
+                free(std);
+                free(mine);
+            }
+        }
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
-
-
+    
+    test_substr();
     
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);

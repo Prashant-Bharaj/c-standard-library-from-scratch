@@ -6,11 +6,26 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 19:54:49 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 20:01:39 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 11:54:50 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+
+// Allocates (with malloc(3)) and returns a substring from the string ’s’.
+// The substring begins at index ’start’ and is of maximum size ’len’.
+
+// Create a method which return empty string
+static char *empty_string(void)
+{
+    char *str;
+
+    str = (char *)malloc(1);
+    if (str == NULL)
+        return (NULL);
+    str[0] = '\0';
+    return (str);
+}
 
 char *ft_substr(const char *s, unsigned int start, size_t len)
 {
@@ -25,7 +40,7 @@ char *ft_substr(const char *s, unsigned int start, size_t len)
     // because there's nothing to copy
     // why not just return NULL? because NULL indicates an error in allocation
     if (start >= s_len)
-        return (char *)malloc(1);
+        return (empty_string());
     if (len > s_len - start)
         len = s_len - start;
     substr = (char *)malloc((len + 1) * sizeof(char));
