@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 20:03:22 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 14:47:24 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 15:28:21 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,13 +206,133 @@ void test_strtrim(void)
     }
 }
 
+void    test_split(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_split ===\n" C_RESET);
+
+    const char *test_cases[][2] = {
+        {"Hello, World! This is a test.", " "},
+        {"one,two,three,four", ","},
+        {"no_delimiters_here", ","},
+        {",leading,and,trailing,commas,", ","},
+        {"", ","},
+        {"aaaa", "a"},
+    };
+    size_t n_tests = sizeof(test_cases) / sizeof(test_cases[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        const char *s = test_cases[i][0];
+        char c = test_cases[i][1][0];
+
+        char label[128];
+        snprintf(label, sizeof(label), "ft_split('%s', '%c')", s, c);
+
+        // Manually split using standard functions for comparison
+        size_t expected_count = 0;
+        const char *temp = s;
+        while (*temp)
+        {
+            while (*temp == c)
+                temp++;
+            if (*temp)
+            {
+                expected_count++;
+                while (*temp && *temp != c)
+                    temp++;
+            }
+        }
+
+        char **std = (char **)malloc((expected_count + 1) * sizeof(char *));
+        size_t index = 0;
+        temp = s;
+        while (*temp)
+        {
+            while (*temp == c)
+                temp++;
+            if (*temp)
+            {
+                const char *start = temp;
+                while (*temp && *temp != c)
+                    temp++;
+                size_t len = temp - start;
+                std[index] = (char *)malloc(len + 1);
+                strncpy(std[index], start, len);
+                std[index][len] = '\0';
+                index++;
+            }
+        }
+        std[index] = NULL;
+
+        char **mine = ft_split(s, c);
+
+        // Compare results
+        size_t j = 0;
+        while (std[j] && mine[j])
+        {
+            char item_label[256];
+            snprintf(item_label, sizeof(item_label), "%s [part %zu]", label, j);
+            assert_str_equal(item_label, std[j], mine[j]);
+            j++;
+        }
+        // Check for extra items
+        if (std[j] || mine[j])
+        {
+            char item_label[256];
+            snprintf(item_label, sizeof(item_label), "%s [part %zu]", label, j);
+            assert_str_equal(item_label, std[j], mine[j]);
+        }
+        // Free allocated memory
+        for (size_t k = 0; k < expected_count; k++)
+            free(std[k]);
+        free(std);
+        for (size_t k = 0; mine[k] != NULL; k++)
+            free(mine[k]);
+        free(mine);
+    }
+}
+
+void test_itoa(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_itoa ===\n" C_RESET);
+
+    int test_values[] = {
+        0,
+        123,
+        -123,
+        2147483647,
+        -2147483648,
+        42,
+        -42,
+    };
+    size_t n_tests = sizeof(test_values) / sizeof(test_values[0]);
+
+    for (size_t i = 0; i < n_tests; i++)
+    {
+        int n = test_values[i];
+
+        char label[128];
+        snprintf(label, sizeof(label), "ft_itoa(%d)", n);
+
+        char std[12]; // enough for int32
+        snprintf(std, sizeof(std), "%d", n);
+        char *mine = ft_itoa(n);
+
+        assert_str_equal(label, std, mine);
+
+        free(mine);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
     
-    test_substr();
-    test_strjoin();
-    test_strtrim();
+    // test_substr();
+    // test_strjoin();
+    // test_strtrim();
+    test_split();
+    test_itoa();
     
     
 

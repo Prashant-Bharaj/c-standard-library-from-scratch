@@ -6,14 +6,14 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 14:44:13 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/22 15:27:01 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 #define LIBFT_H
 
-#include <unistd.h>
+#include <stdlib.h>
 
 int ft_isalpha(int c);
 int ft_isdigit(int c);
@@ -41,5 +41,7 @@ char *ft_strdup(const char *s);
 char *ft_substr(const char *s, unsigned int start, size_t len);
 char *ft_strjoin(const char *s1, const char *s2);
 char *ft_strtrim(const char *s1, const char *set);
+char **ft_split(const char *s, char c);
+char *ft_itoa(int n);
 
 #endif
