@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 18:55:38 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/23 11:41:04 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/23 12:32:13 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,131 @@ void   test_lstclear(void)
     }
 }
 
+void increment(void *content)
+{
+    int *val_ptr = (int *)content;
+    *val_ptr += 10;
+}
+
+void test_lstiter(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstiter ===\n" C_RESET);
+
+    int vals[] = { 1, 2, 3 };
+    size_t n = sizeof(vals) / sizeof(vals[0]);
+
+    t_list *list = NULL;
+    for (size_t i = 0; i < n; i++)
+    {
+        t_list *new_node = ft_lstnew(&vals[i]);
+        ft_lstadd_back(&list, new_node);
+    }
+
+    ft_lstiter(list, increment);
+
+    // Verify the results
+    int expected_vals[] = { 11, 12, 13 };
+    t_list *curr = list;
+    size_t index = 0;
+    int success = 1;
+
+    while (curr != NULL)
+    {
+        if (*(int *)(curr->content) != expected_vals[index])
+        {
+            success = 0;
+            break;
+        }
+        curr = curr->next;
+        index++;
+    }
+
+    if (success)
+    {
+        printf(C_GREEN "[OK]   ft_lstiter modified the list correctly\n" C_RESET);
+    }
+    else
+    {
+        printf(C_RED "[KO]   ft_lstiter did not modify the list correctly\n" C_RESET);
+        g_failures++;
+    }
+
+    // Clean up
+    t_list *temp;
+    while (list != NULL)
+    {
+        temp = list;
+        list = list->next;
+        free(temp);
+    }
+}
+
+void *increment_map(void *content)
+{
+    *((int *)content) += 10;
+    return content;   
+}
+
+
+void test_lstmap(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstmap ===\n" C_RESET);
+
+    int vals[] = { 1, 2, 3 };
+    size_t n = sizeof(vals) / sizeof(vals[0]);
+
+    t_list *list = NULL;
+    for (size_t i = 0; i < n; i++)
+    {
+        t_list *new_node = ft_lstnew(&vals[i]);
+        ft_lstadd_back(&list, new_node);
+    }
+
+    t_list *mapped_list = ft_lstmap(list, increment_map, del);
+
+    // Verify the results
+    int expected_vals[] = { 11, 12, 13 };
+    t_list *curr = mapped_list;
+    size_t index = 0;
+    int success = 1;
+
+    while (curr != NULL)
+    {
+        if (*(int *)(curr->content) != expected_vals[index])
+        {
+            success = 0;
+            break;
+        }
+        curr = curr->next;
+        index++;
+    }
+
+    if (success)
+    {
+        printf(C_GREEN "[OK]   ft_lstmap created the mapped list correctly\n" C_RESET);
+    }
+    else
+    {
+        printf(C_RED "[KO]   ft_lstmap did not create the mapped list correctly\n" C_RESET);
+        g_failures++;
+    }
+
+    // Clean up
+    t_list *temp;
+    while (list != NULL)
+    {
+        temp = list;
+        list = list->next;
+        free(temp);
+    }
+    while (mapped_list != NULL)
+    {
+        temp = mapped_list;
+        mapped_list = mapped_list->next;
+        free(temp);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -298,6 +423,8 @@ int main(void)
     test_lstlast();
     test_lstdelone();
     test_lstclear();
+    test_lstiter();
+    test_lstmap();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
