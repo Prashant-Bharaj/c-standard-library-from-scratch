@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 13:07:05 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/23 10:53:38 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/23 11:28:09 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,7 @@ void ft_putnbr_fd(int n, int fd);
 t_list *ft_lstnew(void *content);
 void ft_lstadd_front(t_list **lst, t_list *new);
 int ft_lstsize(t_list *lst);
+t_list *ft_lstlast(t_list *lst);
+void ft_lstadd_back(t_list **lst, t_list *new);
 
 #endif

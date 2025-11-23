@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 18:55:38 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/23 10:56:02 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/23 11:29:42 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,132 @@ void test_lstadd_front(void)
     }
 }
 
+void    test_lstsize(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstsize ===\n" C_RESET);
+
+    // Create a list with 5 elements
+    int vals[] = {10, 20, 30, 40, 50};
+    size_t n = sizeof(vals) / sizeof(vals[0]);
+
+    t_list *list = NULL;
+    for (size_t i = 0; i < n; i++)
+    {
+        t_list *new_node = ft_lstnew(&vals[i]);
+        ft_lstadd_front(&list, new_node);
+    }
+
+    // Now the list has 5 elements
+    int size = ft_lstsize(list);
+    if (size == (int)n)
+    {
+        printf(C_GREEN "[OK]   ft_lstsize returned %d as expected\n" C_RESET, size);
+    }
+    else
+    {
+        printf(C_RED "[KO]   ft_lstsize returned %d, expected %zu\n" C_RESET, size, n);
+        g_failures++;
+    }
+
+    // Clean up
+    t_list *curr;
+    while (list != NULL)
+    {
+        curr = list;
+        list = list->next;
+        free(curr);
+    }
+}
+
+void    test_lstlast(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstlast ===\n" C_RESET);
+
+    // Create a list with 4 elements
+    int vals[] = {5, 15, 25, 35};
+    size_t n = sizeof(vals) / sizeof(vals[0]);
+
+    t_list *list = NULL;
+    for (size_t i = 0; i < n; i++)
+    {
+        t_list *new_node = ft_lstnew(&vals[i]);
+        ft_lstadd_front(&list, new_node);
+    }
+
+    // Now the list has 4 elements, last should be 5
+    t_list *last_node = ft_lstlast(list);
+    if (last_node != NULL && last_node->content == &vals[0])
+    {
+        printf(C_GREEN "[OK]   ft_lstlast returned the correct last node\n" C_RESET);
+    }
+    else
+    {
+        printf(C_RED "[KO]   ft_lstlast did not return the correct last node\n" C_RESET);
+        g_failures++;
+    }
+
+    // Clean up
+    t_list *curr;
+    while (list != NULL)
+    {
+        curr = list;
+        list = list->next;
+        free(curr);
+    }
+}
+
+void  test_lstadd_back(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstadd_back ===\n" C_RESET);
+
+    int vals[] = { 10, 20, 30 };
+    size_t n = sizeof(vals) / sizeof(vals[0]);
+
+    t_list *actual_list = NULL;
+
+    // 1. Build ACTUAL list using ft_lstadd_back
+    for (size_t i = 0; i < n; i++)
+    {
+        t_list *new_node = ft_lstnew(&vals[i]);
+        ft_lstadd_back(&actual_list, new_node);
+    }
+
+    // 2. Build EXPECTED list manually
+    t_list *expected = NULL;
+    t_list *node1 = ft_lstnew(&vals[0]); // 10
+    t_list *node2 = ft_lstnew(&vals[1]); // 20
+    t_list *node3 = ft_lstnew(&vals[2]); // 30
+
+    // Manually link them to form 10 -> 20 -> 30
+    node1->next = node2;
+    node2->next = node3;
+    node3->next = NULL;
+    expected = node1; // Head is 10
+    // 3. Compare
+    assert_list_equal("ft_lstadd_back result", expected, actual_list);
+    // 4. Clean up (Free both lists)
+    t_list *curr;
+    while (actual_list != NULL)
+    {
+        curr = actual_list;
+        actual_list = actual_list->next;
+        free(curr);
+    }
+    while (expected != NULL)
+    {
+        curr = expected;
+        expected = expected->next;
+        free(curr);
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
     test_lstnew();
     test_lstadd_front();
+    test_lstsize();
+    test_lstadd_back();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
