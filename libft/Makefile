@@ -6,7 +6,7 @@
 #    By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 15:52:06 by prasingh          #+#    #+#              #
-#    Updated: 2025/11/23 11:28:38 by prasingh         ###   ########.fr        #
+#    Updated: 2025/11/23 11:43:24 by prasingh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRC_PART2   = ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c \
 	
 SRC         = $(SRC_PART1) $(SRC_PART2)
 
-SRC_BONUS   = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c
+SRC_BONUS   = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c \
+	ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
 OBJ         = $(SRC:.c=.o)
 OBJ_BONUS   = $(SRC_BONUS:.c=.o)

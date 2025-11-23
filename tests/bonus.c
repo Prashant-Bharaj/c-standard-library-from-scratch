@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 18:55:38 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/23 11:29:42 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/23 11:41:04 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,47 @@ void  test_lstadd_back(void)
     }
 }
 
+void del(void *content)
+{
+        (void)content;
+}
+
+void    test_lstdelone(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstdelone ===\n" C_RESET);
+
+    int val = 99;
+    t_list *node = ft_lstnew(&val);
+    ft_lstdelone(node, del);
+    printf(C_GREEN "[OK]   ft_lstdelone executed without crashing\n" C_RESET);
+}
+
+void   test_lstclear(void)
+{
+    printf(C_YELLOW "\n=== TEST: ft_lstclear ===\n" C_RESET);
+
+    int vals[] = { 1, 2, 3, 4, 5 };
+    size_t n = sizeof(vals) / sizeof(vals[0]);
+
+    t_list *list = NULL;
+    for (size_t i = 0; i < n; i++)
+    {
+        t_list *new_node = ft_lstnew(&vals[i]);
+        ft_lstadd_back(&list, new_node);
+    }
+
+    ft_lstclear(&list, del);
+    if (list == NULL)
+    {
+        printf(C_GREEN "[OK]   ft_lstclear cleared the list successfully\n" C_RESET);
+    }
+    else
+    {
+        printf(C_RED "[KO]   ft_lstclear did not clear the list\n" C_RESET);
+        g_failures++;
+    }
+}
+
 int main(void)
 {
     printf(C_YELLOW "======= LIBFT TESTS (PARTIAL) =======\n" C_RESET);
@@ -254,6 +295,9 @@ int main(void)
     test_lstadd_front();
     test_lstsize();
     test_lstadd_back();
+    test_lstlast();
+    test_lstdelone();
+    test_lstclear();
 
     printf(C_YELLOW "\n=====================================\n" C_RESET);
     if (g_failures == 0)
