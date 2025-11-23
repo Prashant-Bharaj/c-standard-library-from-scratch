@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 14:51:09 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/22 15:19:05 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/23 15:15:21 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	**ft_split(const char *s, char c)
 
 	start = s;
 	index = 0;
+	end = 0;
 	result = (char **)malloc((count_splits(s, c) + 1) * sizeof(char *));
 	while (*s)
 	{
