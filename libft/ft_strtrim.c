@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include "libft.h"
 
 static size_t	trimed_len(const char *s1, const char *set)
 {
@@ -51,5 +51,7 @@ static const char	*trimed_start(const char *s1, const char *set)
 
 char	*ft_strtrim(const char *s1, const char *set)
 {
+	if (s1 == NULL || set == NULL)
+		return (NULL);
 	return (ft_substr(trimed_start(s1, set), 0, trimed_len(s1, set)));
 }

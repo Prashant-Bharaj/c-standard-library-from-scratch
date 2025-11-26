@@ -1,0 +1,14 @@
+# subject files because of copyright issues
+libft.pdf
+
+# Object files
+*.o
+
+# Library files
+*.a
+
+# Executables
+*.out
+
+# IDE files
+.vscode/

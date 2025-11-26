@@ -29,6 +29,8 @@ char	*ft_substr(const char *s, unsigned int start, size_t len)
 	size_t	i;
 	size_t	s_len;
 
+	if (s == NULL)
+		return (NULL);
 	s_len = 0;
 	while (s[s_len] != '\0')
 		s_len++;

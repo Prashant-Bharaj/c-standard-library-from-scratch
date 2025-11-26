@@ -18,6 +18,8 @@ int	ft_atoi(const char *nptr)
 	long	result;
 	size_t	i;
 
+	if (nptr == NULL)
+		return (0);
 	sign = 1;
 	result = 0;
 	i = 0;
