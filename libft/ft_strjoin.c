@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:58:33 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/23 13:44:50 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:40:44 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,11 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	size_t	len1;
 	size_t	len2;
 
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	joined = (char *)malloc((len1 + len2 + 1) * sizeof(char));
 	if (joined == NULL)
 		return (NULL);
-	i = 0;
 	while (i < len1)
 	{
 		joined[i] = s1[i];
