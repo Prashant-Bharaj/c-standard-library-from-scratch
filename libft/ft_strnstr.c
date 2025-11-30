@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 18:21:58 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 18:22:49 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:17:08 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	i;
 	size_t	j;
 
-	if (big == NULL && len == 0)
-		return (NULL);
-	if (little == NULL || *little == '\0')
+	if (*little == '\0')
 		return ((char *)big);
 	i = 0;
 	while (big[i] != '\0' && i < len)

@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 18:35:17 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 18:36:08 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:15:40 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	ft_atoi(const char *nptr)
 	long	result;
 	size_t	i;
 
-	if (nptr == NULL)
-		return (0);
 	sign = 1;
 	result = 0;
 	i = 0;
