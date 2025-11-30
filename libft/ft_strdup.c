@@ -6,7 +6,7 @@
 /*   By: prasingh <prasingh@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 19:36:26 by prasingh          #+#    #+#             */
-/*   Updated: 2025/11/21 19:38:28 by prasingh         ###   ########.fr       */
+/*   Updated: 2025/11/30 20:57:50 by prasingh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ char	*ft_strdup(const char *s)
 	char	*dup;
 	size_t	i;
 
-	if (s == NULL)
-		return (NULL);
 	len = 0;
 	while (s[len] != '\0')
 		len++;
